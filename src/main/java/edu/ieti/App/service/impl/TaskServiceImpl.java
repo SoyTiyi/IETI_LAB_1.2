@@ -3,42 +3,39 @@ package edu.ieti.App.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.springframework.stereotype.Service;
-
 import edu.ieti.App.data.Task;
 import edu.ieti.App.service.TaskService;
 
 @Service
 public class TaskServiceImpl implements TaskService{
 
-    HashMap<AtomicInteger, Task> tasks = new HashMap<AtomicInteger, Task>();
+    HashMap<String, Task> tasks = new HashMap<String, Task>();
 
     @Override
     public Task create(Task task) {
-        AtomicInteger size = new AtomicInteger(tasks.size()+1);
-        task.setId(size);
+        int intId = tasks.size()+1;
+        task.setId(intId+"");
         tasks.put(task.getId(), task);
         return tasks.get(task.getId());
     }
 
     @Override
-    public Task findById(AtomicInteger id) {
+    public Task findById(String id) {
         return tasks.get(id);
     }
 
     @Override
     public List<Task> all() {
         List<Task> listTask = new ArrayList<Task>();
-        for(AtomicInteger key: tasks.keySet()){
+        for(String key: tasks.keySet()){
             listTask.add(tasks.get(key));
         }
         return listTask;
     }
 
     @Override
-    public boolean deleteById(AtomicInteger id) {
+    public boolean deleteById(String id) {
         try {
             tasks.remove(id);
             return true;
@@ -48,7 +45,8 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public Task update(Task task, AtomicInteger id) {
+    public Task update(Task task, String id) {
+        task.setId(id);
         tasks.replace(id, tasks.get(id), task);
         return tasks.get(id);
     }

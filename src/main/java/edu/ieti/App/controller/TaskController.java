@@ -1,7 +1,5 @@
 package edu.ieti.App.controller;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +35,7 @@ public class TaskController {
     }
 
     @GetMapping( "/{id}" )
-    public ResponseEntity<?> findById(@PathVariable AtomicInteger id){
+    public ResponseEntity<?> findById(@PathVariable String id){
         try {
             return new ResponseEntity<>(taskService.findById(id),HttpStatus.ACCEPTED);
         } catch (Exception e) {
@@ -56,7 +54,7 @@ public class TaskController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update( @RequestBody TaskDto taskDto, @PathVariable AtomicInteger id ){
+    public ResponseEntity<?> update( @RequestBody TaskDto taskDto, @PathVariable String id ){
         try {
             Task task = new Task(taskDto.getName(), taskDto.getDescription(), taskDto.getStatus(), taskDto.getAssignedTo(),taskDto.getDueDate(),taskDto.isCreated());
             return new ResponseEntity<>(taskService.update(task, id),HttpStatus.ACCEPTED);
@@ -66,7 +64,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> delete( @PathVariable AtomicInteger id ){
+    public ResponseEntity<Boolean> delete( @PathVariable String id ){
         try {
             return new ResponseEntity<>(taskService.deleteById(id),HttpStatus.ACCEPTED);
         } catch (Exception e) {

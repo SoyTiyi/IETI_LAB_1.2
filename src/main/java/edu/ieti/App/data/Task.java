@@ -1,12 +1,10 @@
 package edu.ieti.App.data;
 
 import java.sql.Date;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import edu.ieti.App.status.Status;
 
 public class Task {
-    private AtomicInteger id;
+    private String id;
     private String name;
     private String description;
     private Status status;
@@ -28,11 +26,11 @@ public class Task {
         setCreated(created);
     }
 
-    public AtomicInteger getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(AtomicInteger id) {
+    public void setId(String id) {
         this.id = id;
     }
 
