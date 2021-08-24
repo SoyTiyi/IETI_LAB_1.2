@@ -17,6 +17,8 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task create(Task task) {
+        AtomicInteger size = new AtomicInteger(tasks.size()+1);
+        task.setId(size);
         tasks.put(task.getId(), task);
         return tasks.get(task.getId());
     }
